@@ -21,7 +21,7 @@
         v-focus
       />
     </div>
-    <div class="remove-item" @click="removeTodo(index)">
+    <div class="remove-item" @click="removeTodo(todo.id)">
       &times;
     </div>
   </div>
@@ -70,8 +70,8 @@ export default {
     }
   },
   methods: {
-    removeTodo(index) {
-      this.$emit("removeTodo", index);
+    removeTodo(id) {
+      this.$emit("removedTodo", id);
     },
     editTodo() {
       this.beforeEditCache = this.title;

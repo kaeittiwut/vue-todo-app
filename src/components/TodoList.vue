@@ -13,10 +13,9 @@
       leave-active-class="animated fadeOutDown"
     >
       <todo-item
-        v-for="(todo, index) in todosFiltered"
+        v-for="todo in todosFiltered"
         :key="todo.id"
         :todo="todo"
-        :index="index"
         :checkAll="!anyRemaining"
         @removeTodo="removeTodo"
         @finishedEdit="finishedEdit"
@@ -132,7 +131,8 @@ export default {
       this.newTodo = "";
       this.idForTodo++;
     },
-    removeTodo(index) {
+    removeTodo(id) {
+      const index = this.todos.findIndex(item => item.id == id);
       this.todos.splice(index, 1);
     },
     checkAllTodos() {
@@ -142,7 +142,8 @@ export default {
       this.todos = this.todos.filter(todo => !todo.completed);
     },
     finishedEdit(data) {
-      this.todos.splice(data.index, 1, data.todo);
+      const index = this.todos.findIndex(item => item.id == data.id);
+      this.todos.splice(index, 1, data);
     }
   }
 };
