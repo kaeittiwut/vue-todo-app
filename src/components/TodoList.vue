@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="name-container">Welcome, {{ name }}</div>
     <input
       type="text"
       class="todo-input"
@@ -58,11 +59,15 @@ export default {
   data() {
     return {
       newTodo: "",
-      idForTodo: 3
+      idForTodo: 3,
+      name: ""
     };
   },
   created() {
     this.$store.dispatch("retrieveTodos");
+    this.$store.dispatch("retrieveName").then(response => {
+      this.name = response.data.name;
+    });
   },
   computed: {
     anyRemaining() {
@@ -89,7 +94,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css");
 .todo-input {
   width: 100%;
   padding: 10px 18px;
@@ -147,6 +151,11 @@ export default {
   padding-top: 14px;
   margin-bottom: 14px;
 }
+
+.name-container {
+  margin-bottom: 16px;
+}
+
 button {
   font-size: 14px;
   background-color: white;
